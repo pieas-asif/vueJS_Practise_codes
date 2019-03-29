@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VueJs - Tutorial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Linkin Park Discography</h1>
+    <input type="text" v-model="filterText">
+    <h3>Sort titles by:
+      <button @click="sortLowest">From Oldest</button>
+      <button @click="sortHighest">From Latest</button>
+    </h3>
+    <table>
+      <thead>
+        <tr>
+          <th v-for="key in columns">
+            {{ key }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="entry in filteredAlbums">
+          <td v-for="key in columns">
+            {{entry[key]}}
+          </td>
+        </tr>
+      <tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
