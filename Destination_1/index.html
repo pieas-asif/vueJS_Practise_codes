@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Your Upcoming Destinations</h2>
+    <div class="location-contain">
+      <div class="locations" v-for="location in locations">
+        <child
+          :img="location.img"
+          :name="location.name"
+          :desc="location.desc"
+        />
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script type="text/x-template" id="child">
+    <div class="place">
+      <img :src="img" width="235" height="300"/>
+      <h2>{{ name }}</h2>
+      <p>{{ desc }}</p>
+    </div>
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
