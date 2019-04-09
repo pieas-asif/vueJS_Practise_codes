@@ -22,6 +22,12 @@ export default {
 </script>
 
 <style>
+body {
+  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+  min-height: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
