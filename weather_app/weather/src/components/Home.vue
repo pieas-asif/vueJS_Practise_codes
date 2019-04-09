@@ -1,6 +1,6 @@
 <template>
   <div id="home-view-container">
-    <h1>Weather</h1>
+    <h1 class="tracking-in-expand main-head">Weather</h1>
     <b-form @submit.prevent="getWeatherData" class="weather-input-form">
       <b-form-group id="input-group-1">
         <b-form-input
@@ -17,19 +17,17 @@
     <hr>
     <div class="weather-data">
       <div class="weather-data__information">
-
+        <h3>{{ placename }}</h3>
+        <p>{{ dailySummary }}</p>
+        <p>Humidity: {{ humidity }}</p>
+        <p>Pressure: {{ pressure }}</p>
+        <p>Visibility: {{ visibility }}</p>
       </div>
       <div class="weather-data__icons">
-        <skycon v-if="icon !== null" :condition="icon" />
-        <h2>{{ temperature }} &#176;F</h2>
-
+        <skycon v-if="icon !== null" :condition="icon" width="112" height="112" />
+        <h2><strong>{{ temperature }} &#176;F</strong></h2>
+        <p>{{ summary }}</p>
       </div>
-      <h3>{{ placename }}</h3>
-      <p>Temperature: {{ temperature }} F</p>
-      <p>{{ summery }}</p>
-      <p>Humidity: {{ humidity }}</p>
-      <p>Pressure: {{ pressure }}</p>
-      <p>Visibility: {{ visibility }}</p>
     </div>
   </div>
 </template>
@@ -44,7 +42,8 @@ export default {
       weather: {},
       temperature: NaN,
       icon: null,
-      summery: 'Undefined',
+      summary: 'Undefined',
+      dailySummary: 'Undefined',
       humidity: NaN,
       pressure: NaN,
       visibility: NaN,
@@ -68,7 +67,8 @@ export default {
       const esponse = await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/9d8085c603211b722d79831ec5a25f1b/${this.lat},${this.lng}`);
       this.weather = esponse.data;
       this.temperature = this.weather.currently.apparentTemperature;
-      this.summery = this.weather.currently.summary;
+      this.summary = this.weather.currently.summary;
+      this.dailySummary = this.weather.daily.summary;
       this.humidity = this.weather.currently.humidity;
       this.pressure = this.weather.currently.pressure;
       this.visibility = this.weather.currently.visibility;
@@ -87,7 +87,8 @@ export default {
     const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/9d8085c603211b722d79831ec5a25f1b/${this.lat},${this.lng}`);
     this.weather = response.data;
     this.temperature = this.weather.currently.apparentTemperature;
-    this.summery = this.weather.currently.summary;
+    this.summary = this.weather.currently.summary;
+    this.dailySummary = this.weather.daily.summary;
     this.humidity = this.weather.currently.humidity;
     this.pressure = this.weather.currently.pressure;
     this.visibility = this.weather.currently.visibility;
@@ -100,9 +101,10 @@ export default {
 </script>
 
 <style scoped>
-/* #home-view-container {
-  display: grid;
-} */
+@import url('https://fonts.googleapis.com/css?family=Bitter');
+.main-head {
+  font-family: 'Bitter', serif;
+}
 .weather-input-form {
   max-width: 25rem;
   display: grid;
@@ -115,5 +117,53 @@ export default {
 .weather-input-form__btn,
 .weather-input-form__input {
   padding: auto auto;
+}
+.weather-data {
+  display: grid;
+  grid-template-columns: calc(50% - 2rem) calc(50% - 2rem);
+  grid-gap: 4rem;
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .weather-data {
+    display: grid;
+    grid-template-columns: auto;
+    margin: 0 auto;
+    grid-gap: 0;
+  }
+  .weather-data__icons {
+    grid-row: 1;
+  }
+}
+.weather-data__information p {
+  font-size: 1.2rem;
+}
+.tracking-in-expand {
+	-webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1s both;
+	        animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1s both;
+}
+@-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
