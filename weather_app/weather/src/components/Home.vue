@@ -124,7 +124,7 @@ export default {
   grid-gap: 4rem;
   margin: 0 auto;
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .weather-data {
     display: grid;
     grid-template-columns: auto;
